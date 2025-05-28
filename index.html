@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>❤️ Sol ❤️</title>
+  <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background-color: rgb(116, 200, 146);
+    }
+
+    .scroll-wrapper {
+        max-height: 100vh;
+        overflow-y: scroll;
+        -ms-overflow-style: none; /* IE/Edge */
+        scrollbar-width: none;    /* Firefox */
+    }
+
+    .scroll-wrapper::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+
+    .login-box {
+      position: absolute;
+      z-index: 10;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ffe6f0;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 0, 128, 0.3);
+      transition: opacity 2s ease;
+    }
+
+    .login-box input {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      border: none;
+      width: 200px;
+      box-shadow: 0px 5px 5px 5px rgb(116, 200, 146);
+    }
+
+    .login-box button {
+      padding: 10px 20px;
+      background-color: #ff3385;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .main-content {
+      opacity: 0;
+      transition: opacity 2s;
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    .main-content.active {
+      opacity: 1;
+    }
+
+    #fadeText {
+        font-size: 1.4em;
+        color: #000000;
+        font-weight: bold;
+        margin-top: 30px;
+        white-space: pre-wrap;
+        min-height: 80vh;
+        transition: all 0.8s ease-in-out;
+    }
+
+    .heart {
+        position: fixed;
+        top: -20px;
+        width: 20px;
+        height: 20px;
+        animation-name: fall;
+        animation-timing-function: linear;
+        animation-iteration-count: 1;
+        opacity: 0.7;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    @keyframes fall {
+        0% {
+            transform: translateY(0);
+            opacity: 0.2; 
+        }
+        90% {
+            opacity: 0.2;
+        }
+        100% { 
+            transform: translateY(120vh);
+            opacity: 0;
+        }
+    }
+
+    .slideshow {
+        width: 100%;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        margin-top: 20px;
+    }   
+
+    .slideshow img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+        transition: opacity 1s;
+    }
+
+    .texto {
+        font-size: 1.2em;
+        margin-top: 20px;
+        opacity: 0;
+        animation: fadeIn 2s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-wrapper">
+    <audio id="audioPlayer" src="Musicas/Musica1.mp3" preload="auto" loop></audio>
+    <img src="Ícones/Coracao.png" class="heart" alt="Coracao" />
+
+    <div class="login-box" id="loginBox">
+      <h1>Você é mesmo a Geovanna? 🤨</h1>
+      <input type="text" id="username" placeholder="Nome do Casal"><br>
+      <input type="password" id="password" placeholder="Senha"><br>
+      <button onclick="validateLogin()">Entrar</button>
+    </div>
+
+    <div class="main-content" id="mainContent">
+      <div class="music">
+        <iframe style="border-radius:12px"
+        src="https://open.spotify.com/embed/track/1DLKuppSYytOuxhtI6KBGu?utm_source=generator"
+        width="50%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay;
+        clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+        </iframe>
+      </div>
+
+      <div class="slideshow">
+        <img src="Fotos/1.jpg" id="slide" alt="Slide">
+      </div>
+
+      <div class="texto" id="fadeText"></div>
+    </div>
+  </div>
+
+  <script>
+    let current = 1;
+    const total = 11;
+
+    function validateLogin() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (username === 'GG' && password === '090624') {
+        document.getElementById('loginBox').classList.add('fade-out');
+        setTimeout(() => {
+            document.getElementById('loginBox').classList.add('hidden');
+            document.getElementById('mainContent').classList.add('active');
+            const audio = document.getElementById('audioPlayer');
+            audio.play().catch(() => {});
+
+            startHearts();
+            startSlideshow();
+
+            setTimeout(() => {
+                typeText(`
+                  Geovanna,  
+                  Nós fizemos tantos momentos  
+                  e tantas memórias nesse 1 ano de namoro.  
+                  Parece que já faz tantos anos,  
+                  mas ainda temos muito pela frente.  
+                  Por enquanto, vamos comemorar  
+                  1 ano inteiro juntos,  
+                  e não há presente melhor para te dar  
+                  do que o que tenho guardado há tanto tempo,  
+                  e que, mesmo você me pedindo por tanto tempo,  
+                  eu tive que fingir que não pensava sobre.  
+                  É algo simples, sutil,  
+                  e que vai apenas aderir no que já temos,  
+                  mas é algo de coração,  
+                  que pensei ser o presente ideal  
+                  para um compromisso tão duradouro  
+                  como o nosso.  
+                  Te amo. Espero que goste (e que sirva).  
+
+                  Feliz 1° aniversário de namoro!
+                `, "fadeText", 50);
+            }, 3000);
+        }, 1000);
+      } else {
+        alert('Nome ou senha inválidos!');
+      }
+    }
+
+    addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        validateLogin();
+      }
+    });
+
+    function createHeart() {
+        const heart = document.createElement("img");
+        heart.src = "Ícones/Coracao.png";
+        heart.classList.add("heart");
+
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDuration = 5 + Math.random() * 5 + "s";
+        document.body.appendChild(heart);
+
+        heart.addEventListener('animationend', () => {
+            heart.remove();
+        });
+    }
+
+    function startHearts() {
+      setInterval(createHeart, 300);
+    }
+
+    function startSlideshow() {
+      setInterval(() => {
+        const slide = document.getElementById("slide");
+        current = current % total + 1;
+        slide.style.opacity = 0;
+        setTimeout(() => {
+          slide.src = `Fotos/${current}.jpg`;
+          slide.style.opacity = 1;
+        }, 1000);
+      }, 5000);
+    }
+
+    function typeText(text, elementId, speed = 50) {
+        const element = document.getElementById(elementId);
+        element.innerHTML = "";
+        let i = 0;
+
+        const cleanText = text.replace(/^\s+/gm, "");
+
+        const interval = setInterval(() => {
+            element.innerHTML += cleanText.charAt(i);
+            i++;
+            if (i === cleanText.length) clearInterval(interval);
+        }, speed);
+    }
+  </script>
+</body>
+</html>
